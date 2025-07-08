@@ -1,0 +1,18 @@
+services:
+  payment-process:
+    build: ./payment-process
+    ports:
+      - "8000:8000"
+    depends_on:
+      - payment-pagpay
+      - payment-pagsafe
+
+  payment-pagpay:
+    build: ./payment-pagpay
+    ports:
+      - "8001:8001"
+
+  payment-pagsafe:
+    build: ./payment-pagsafe
+    ports:
+      - "8002:8002"
