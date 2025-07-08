@@ -1,18 +1,21 @@
-package my.payment_process.domain.dto;
+package my.payment_process.domain.entity;
 
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-import my.payment_process.domain.entity.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Data
+@Entity
 @Getter
 @Setter
-public class PaymentReceivedDto {
-
+public class Payment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String username;
     private String name;
@@ -20,5 +23,4 @@ public class PaymentReceivedDto {
     private BigDecimal tax;
     private BigDecimal total;
     private PaymentStatus status;
-
 }
