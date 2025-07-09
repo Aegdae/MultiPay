@@ -40,6 +40,7 @@ public class PagsafeService {
         pagsafe.setId(paymentDto.getProcessId());
         pagsafe.setUsername(paymentDto.getUsername());
         pagsafe.setName("PagSafe");
+        pagsafe.setMethods(paymentDto.getMethods());
         pagsafe.setAmount(paymentDto.getAmount());
         pagsafe.setTax(tax);
         pagsafe.setTotal(total);
@@ -49,6 +50,7 @@ public class PagsafeService {
         dto.setProcessId(pagsafe.getId());
         dto.setUsername(pagsafe.getUsername());
         dto.setName(pagsafe.getName());
+        dto.setMethods(pagsafe.getMethods());
         dto.setAmount(pagsafe.getAmount());
         dto.setTax(pagsafe.getTax());
         dto.setTotal(pagsafe.getTotal());
@@ -61,5 +63,9 @@ public class PagsafeService {
     public List<Pagsafe> getAllPayments() {
         List<Pagsafe> allPayments = pagsafeRepository.findAll();
         return allPayments;
+    }
+
+    public void deletAll() {
+        pagsafeRepository.deleteAll();
     }
 }

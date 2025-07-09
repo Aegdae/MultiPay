@@ -18,7 +18,7 @@ import java.util.UUID;
 public class PaymentService {
 
     @Autowired
-    private PaymentRepository paymentReceivedRepository;
+    private PaymentRepository paymentRepository;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -27,6 +27,7 @@ public class PaymentService {
     public void processPayment(PaymentDto paymentDto) {
         PaymentDto savedDto = new PaymentDto();
         savedDto.setUsername(paymentDto.getUsername());
+        savedDto.setMethods(paymentDto.getMethods());
         savedDto.setAmount(paymentDto.getAmount());
         savedDto.setStatus(PaymentStatus.PENDING);
         savePayments(savedDto);
@@ -56,10 +57,11 @@ public class PaymentService {
     public PaymentDto savePayments(PaymentDto paymentDto) {
         Payment payment = new Payment();
         payment.setUsername(paymentDto.getUsername());
+        payment.setMethods(paymentDto.getMethods());
         payment.setAmount(paymentDto.getAmount());
         payment.setStatus(paymentDto.getStatus());
 
-        Payment savedPayment = paymentReceivedRepository.save(payment);
+        Payment savedPayment = paymentRepository.save(payment);
         paymentDto.setProcessId(savedPayment.getProcessId());
 
         return paymentDto;
@@ -70,24 +72,25 @@ public class PaymentService {
         Payment payment = new Payment();
         payment.setUsername(paymentDto.getUsername());
         payment.setName(paymentDto.getName());
+        payment.setMethods(paymentDto.getMethods());
         payment.setAmount(paymentDto.getAmount());
         payment.setTax(paymentDto.getTax());
         payment.setTotal(paymentDto.getTotal());
         payment.setStatus(paymentDto.getStatus());
 
-        paymentReceivedRepository.save(payment);
+        paymentRepository.save(payment);
     }
 
     public List<Payment> getAllPayments() {
-        return paymentReceivedRepository.findAll();
+        return paymentRepository.findAll();
     }
 
     public List<Payment> getAllPaymentsForId(String username) {
-        return paymentReceivedRepository.findAllByUsername(username);
+        return paymentRepository.findAllByUsername(username);
 
     }
 
     public void deletAll() {
-        paymentReceivedRepository.deleteAll();
+        paymentRepository.deleteAll();
     }
 }

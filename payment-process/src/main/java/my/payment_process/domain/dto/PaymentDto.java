@@ -2,6 +2,7 @@ package my.payment_process.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import my.payment_process.domain.entity.PaymentMethods;
 import my.payment_process.domain.entity.PaymentStatus;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ public class PaymentDto {
     private UUID processId;
     private String username;
     private String name;
+    private PaymentMethods methods;
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal amount;
     private BigDecimal tax;

@@ -27,4 +27,10 @@ public class PagpayController {
         List<Pagpay> allPayments = pagpayService.getAllPayments();
         return ResponseEntity.ok(allPayments);
     }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteAll() {
+        pagpayService.deletAll();
+        return ResponseEntity.noContent().build();
+    }
 }

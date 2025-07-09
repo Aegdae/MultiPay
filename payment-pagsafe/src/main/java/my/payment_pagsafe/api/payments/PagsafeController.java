@@ -27,4 +27,10 @@ public class PagsafeController {
         List<Pagsafe> allPayments = pagsafeService.getAllPayments();
         return ResponseEntity.ok(allPayments);
     }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteAll() {
+        pagsafeService.deletAll();
+        return ResponseEntity.noContent().build();
+    }
 }

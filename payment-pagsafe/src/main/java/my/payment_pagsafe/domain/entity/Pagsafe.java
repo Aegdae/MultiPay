@@ -21,6 +21,7 @@ public class Pagsafe {
     private UUID processId;
     private String username;
     private String name;
+    private PaymentMethods methods;
     private BigDecimal amount;
     private BigDecimal tax;
     private BigDecimal total;

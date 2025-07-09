@@ -40,6 +40,7 @@ public class PagpayService {
         pagpay.setProcessId(paymentDto.getProcessId());
         pagpay.setUsername(paymentDto.getUsername());
         pagpay.setName("PagPay");
+        pagpay.setMethods(paymentDto.getMethods());
         pagpay.setAmount(paymentDto.getAmount());
         pagpay.setTax(tax);
         pagpay.setTotal(total);
@@ -49,6 +50,7 @@ public class PagpayService {
         dto.setProcessId(pagpay.getId());
         dto.setUsername(pagpay.getUsername());
         dto.setName(pagpay.getName());
+        dto.setMethods(pagpay.getMethods());
         dto.setAmount(pagpay.getAmount());
         dto.setTax(pagpay.getTax());
         dto.setTotal(pagpay.getTotal());
@@ -61,5 +63,9 @@ public class PagpayService {
     public List<Pagpay> getAllPayments() {
         List<Pagpay> allPayments = pagpayRepository.findAll();
         return allPayments;
+    }
+
+    public void deletAll() {
+        pagpayRepository.deleteAll();
     }
 }
