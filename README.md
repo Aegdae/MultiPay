@@ -118,15 +118,15 @@ graph TD
 
 ### Campos do PaymentDto
 
-| Campo      | Tipo           | Descrição                                      | Obrigatório | Valores Possíveis                |
+| Campo      | Tipo           | Descrição                                      | Obrigatório | Valores Possíveis              |
 |------------|----------------|------------------------------------------------|-------------|--------------------------------|
 | processId  | UUID           | Identificador único do processo (gerado pelo sistema) | Não         | UUID                           |
 | username   | String         | Nome do usuário que realizou o pagamento        | Sim         | Qualquer string                |
 | name       | String         | Nome do processador (ex: PagPay, PagSafe)       | Não         | Strings definidas no sistema   |
-| method     | String         | Método de pagamento                              | Sim         | "credit", "debit", "pix", etc.|
+| method     | String         | Método de pagamento                              | Sim         | "CREDIT", "DEBIT", "PIX", etc. |
 | amount     | Decimal (BigDecimal) | Valor do pagamento                              | Sim         | Número positivo                |
-| tax        | Decimal (BigDecimal) | Taxa aplicada ao pagamento                       | Não         | Número decimal                |
-| total      | Decimal (BigDecimal) | Valor total descontando a taxa                    | Não         | Número decimal                |
+| tax        | Decimal (BigDecimal) | Taxa aplicada ao pagamento                       | Não         | Número decimal                 |
+| total      | Decimal (BigDecimal) | Valor total descontando a taxa                    | Não         | Número decimal                 |
 | status     | String         | Status do pagamento                              | Não         | "PENDING", "SUCCESS", "FAILED" |
 
 
