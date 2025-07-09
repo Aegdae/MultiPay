@@ -42,10 +42,10 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: jonnathas1524
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    #deploy:
-      #resources:
-        #limits:
-          #cpus: "3.0"
+    deploy:
+      resources:
+        limits:
+          cpus: "3.0"
 
   payment-pagpay:
     build: ./payment-pagpay
@@ -59,10 +59,10 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: jonnathas1524
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    #deploy:
-      #resources:
-        #limits:
-          #cpus: "2.0"
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
 
   payment-pagsafe:
     build: ./payment-pagsafe
@@ -76,10 +76,10 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: jonnathas1524
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    #deploy:
-      #resources:
-        #limits:
-          #cpus: "2.0"
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
 
 
 volumes:

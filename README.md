@@ -31,21 +31,21 @@ O serviço central é o `payment-process`, responsável por receber a solicitaç
 
 ### 2. PagPay (`payment-pagpay`)
 
-| Método | Rota       | Descrição                                    | Corpo da Requisição                  | Resposta                       |
-|--------|------------|----------------------------------------------|------------------------------------|-------------------------------|
-| POST   | `/payments`| Recebe e processa uma requisição de pagamento PagPay. | JSON `PaymentDto` com dados do pagamento | HTTP 202 Accepted (sem corpo)  |
-| GET    | `/payments`| Recupera todos os registros de pagamento PagPay.      | —                                  | Lista JSON de objetos `Pagpay`  |
-| DELETE | `/payments`| Deleta todos os registros de pagamento PagPay.        | —                                  | HTTP 204 No Content (sem corpo) |
+| Método | Rota                      | Descrição                                    | Corpo da Requisição                  | Resposta                       |
+|--------|---------------------------|----------------------------------------------|------------------------------------|-------------------------------|
+| POST   | `/pagpay/payments`        | Recebe e processa uma requisição de pagamento PagPay. | JSON `PaymentDto` com dados do pagamento | HTTP 202 Accepted (sem corpo)  |
+| GET    | `/pagpay/get-payments`    | Recupera todos os registros de pagamento PagPay.      | —                                  | Lista JSON de objetos `Pagpay`  |
+| DELETE | `/pagpay/delete-payments` | Deleta todos os registros de pagamento PagPay.        | —                                  | HTTP 204 No Content (sem corpo) |
 
 ---
 
 ### 3. PagSafe (`payment-pagsafe`)
 
-| Método | Rota       | Descrição                                      | Corpo da Requisição                  | Resposta                       |
-|--------|------------|------------------------------------------------|------------------------------------|-------------------------------|
-| POST   | `/payments`| Recebe e processa uma requisição de pagamento PagSeguro. | JSON `PaymentDto` com dados do pagamento | HTTP 202 Accepted (sem corpo)  |
-| GET    | `/payments`| Recupera todos os registros de pagamento PagSeguro.      | —                                  | Lista JSON de objetos `Pagsafe` |
-| DELETE | `/payments`| Deleta todos os registros de pagamento PagSeguro.        | —                                  | HTTP 204 No Content (sem corpo) |
+| Método | Rota                       | Descrição                                      | Corpo da Requisição                  | Resposta                       |
+|--------|----------------------------|------------------------------------------------|------------------------------------|-------------------------------|
+| POST   | `/pagsafe/payments`        | Recebe e processa uma requisição de pagamento PagSeguro. | JSON `PaymentDto` com dados do pagamento | HTTP 202 Accepted (sem corpo)  |
+| GET    | `/pagsafe/get-payments`    | Recupera todos os registros de pagamento PagSeguro.      | —                                  | Lista JSON de objetos `Pagsafe` |
+| DELETE | `/pagsafe/delete-payments` | Deleta todos os registros de pagamento PagSeguro.        | —                                  | HTTP 204 No Content (sem corpo) |
 
 ---
 
@@ -77,6 +77,7 @@ O serviço central é o `payment-process`, responsável por receber a solicitaç
 ### Exemplo de resposta
 ```json
 {
+  "eventId": "9591e705-e6f3-461a-ad32-1f38e213e760",
   "processId": "992dfc6a-6762-4c29-9551-b6ce30ef7fb0",
   "username": "user123",
   "name": "PagPay",
@@ -84,7 +85,8 @@ O serviço central é o `payment-process`, responsável por receber a solicitaç
   "amount": 88.32,
   "tax": 3.53,
   "total": 84.79,
-  "status": "SUCCESS"
+  "status": "SUCCESS",
+  "createdAt": "2025-07-09T17:10:22.888460Z"
 }
 ```
 

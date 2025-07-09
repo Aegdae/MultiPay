@@ -21,21 +21,25 @@ public class PagpayService {
     @Autowired
     private PagpayRepository pagpayRepository;
 
+    /**
+     * Processa o pagamento via PagSafe, calcula a taxa e envia os dados para o Kafka.
+     */
     public Pagpay payment(PaymentDto paymentDto) {
         if (paymentDto.getProcessId() == null) {
             throw new IllegalArgumentException("ProcessId não pode ser nulo");
         }
-
+        // Calcula a taxa fixa de 4%
         double taxD = 0.04;
         BigDecimal taxBD = BigDecimal.valueOf(taxD);
         BigDecimal tax = paymentDto.getAmount()
                 .multiply(taxBD)
                 .setScale(2, RoundingMode.HALF_UP);
+        // Total final apos cobrança de taxa
         BigDecimal total = paymentDto.getAmount()
                 .subtract(tax)
                 .setScale(2, RoundingMode.HALF_UP);
 
-
+        // Cria entidade para salvar no banco
         Pagpay pagpay = new Pagpay();
         pagpay.setProcessId(paymentDto.getProcessId());
         pagpay.setUsername(paymentDto.getUsername());
@@ -46,8 +50,9 @@ public class PagpayService {
         pagpay.setTotal(total);
         pagpay.setStatus(PagpayStatus.SUCCESS);
 
+        // Cria dto para enviar ao Kafka
         PaymentDto dto = new PaymentDto();
-        dto.setProcessId(pagpay.getId());
+        dto.setProcessId(pagpay.getProcessId());
         dto.setUsername(pagpay.getUsername());
         dto.setName(pagpay.getName());
         dto.setMethods(pagpay.getMethods());
@@ -60,11 +65,17 @@ public class PagpayService {
         return pagpayRepository.save(pagpay);
     }
 
+    /**
+    * Retorna todos os pagamentos processados pelo PagSafe.
+    */
     public List<Pagpay> getAllPayments() {
         List<Pagpay> allPayments = pagpayRepository.findAll();
         return allPayments;
     }
 
+    /**
+     * Remove todos os registros de pagamento do banco de dados.
+     */
     public void deletAll() {
         pagpayRepository.deleteAll();
     }

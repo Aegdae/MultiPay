@@ -10,25 +10,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/pagpay")
 public class PagpayController {
 
     @Autowired
     private PagpayService pagpayService;
 
-    @PostMapping
+    @PostMapping("/payments")
     public ResponseEntity<Void> payments(@RequestBody PaymentDto paymentDto) {
+        System.out.println("Recebido no Pagpay: " + paymentDto);
         pagpayService.payment(paymentDto);
         return ResponseEntity.accepted().build();
     }
 
-    @GetMapping
+    @GetMapping("/get-payments")
     public ResponseEntity<List<Pagpay>> getAllPayments() {
         List<Pagpay> allPayments = pagpayService.getAllPayments();
         return ResponseEntity.ok(allPayments);
     }
 
-    @DeleteMapping
+    @DeleteMapping("delete-payments")
     public ResponseEntity<?> deleteAll() {
         pagpayService.deletAll();
         return ResponseEntity.noContent().build();

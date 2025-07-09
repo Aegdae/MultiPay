@@ -16,9 +16,9 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @PostMapping("/process-payments")
-    public ResponseEntity<String> processPayment(@RequestBody PaymentDto paymentDto){
+    public ResponseEntity<Void> processPayment(@RequestBody PaymentDto paymentDto){
         paymentService.processPayment(paymentDto);
-        return ResponseEntity.ok("Pagamento processado com sucesso!");
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/get-payments")

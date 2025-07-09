@@ -1,13 +1,12 @@
 package my.payment_pagsafe.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +16,8 @@ public class Pagsafe {
 
     @Id
     @GeneratedValue( strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID eventId;
+    @Column(unique = true)
     private UUID processId;
     private String username;
     private String name;
@@ -26,4 +26,6 @@ public class Pagsafe {
     private BigDecimal tax;
     private BigDecimal total;
     private PagsafeStatus status;
+    @CreationTimestamp
+    private Instant createdAt;
 }

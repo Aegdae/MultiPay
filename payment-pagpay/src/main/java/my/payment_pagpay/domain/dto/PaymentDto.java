@@ -14,11 +14,8 @@ public class PaymentDto {
     private String username;
     private String name;
     private PaymentMethods methods;
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal amount;
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal tax;
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal total;
     private PagpayStatus status;
 }

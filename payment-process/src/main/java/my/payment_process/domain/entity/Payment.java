@@ -1,13 +1,12 @@
 package my.payment_process.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +15,7 @@ import java.util.UUID;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID eventId;
     private UUID processId;
     private String username;
     private String name;
@@ -24,4 +24,13 @@ public class Payment {
     private BigDecimal tax;
     private BigDecimal total;
     private PaymentStatus status;
+    @CreationTimestamp
+    private Instant createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (processId == null) {
+            processId = UUID.randomUUID();
+        }
+    }
 }
