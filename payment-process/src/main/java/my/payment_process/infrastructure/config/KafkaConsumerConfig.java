@@ -20,6 +20,8 @@ public class KafkaConsumerConfig {
     public ConsumerFactory<String, PaymentDto> consumerFactory() {
         JsonDeserializer<PaymentDto> deserializer = new JsonDeserializer<>(PaymentDto.class);
         deserializer.addTrustedPackages("*");
+        deserializer.setRemoveTypeHeaders(true);
+        deserializer.setUseTypeMapperForKey(false);
 
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");

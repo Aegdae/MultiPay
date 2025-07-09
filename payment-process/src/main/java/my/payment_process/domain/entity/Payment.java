@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID processId;
     private String username;
     private String name;
     private BigDecimal amount;

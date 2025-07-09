@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 public class PagpayService {
@@ -25,7 +26,7 @@ public class PagpayService {
             throw new IllegalArgumentException("ProcessId não pode ser nulo");
         }
 
-        double taxD = 0.02;
+        double taxD = 0.04;
         BigDecimal taxBD = BigDecimal.valueOf(taxD);
         BigDecimal tax = paymentDto.getAmount()
                 .multiply(taxBD)
@@ -36,16 +37,16 @@ public class PagpayService {
 
 
         Pagpay pagpay = new Pagpay();
-        pagpay.setId(paymentDto.getProcessId());
+        pagpay.setProcessId(paymentDto.getProcessId());
         pagpay.setUsername(paymentDto.getUsername());
-        pagpay.setName("PagSafe");
+        pagpay.setName("PagPay");
         pagpay.setAmount(paymentDto.getAmount());
         pagpay.setTax(tax);
         pagpay.setTotal(total);
         pagpay.setStatus(PagpayStatus.SUCCESS);
 
         PaymentDto dto = new PaymentDto();
-        dto.setProcessId(pagpay.getProcessId());
+        dto.setProcessId(pagpay.getId());
         dto.setUsername(pagpay.getUsername());
         dto.setName(pagpay.getName());
         dto.setAmount(pagpay.getAmount());
@@ -55,5 +56,10 @@ public class PagpayService {
 
         kafkaProducer.paymentProducer(dto);
         return pagpayRepository.save(pagpay);
+    }
+
+    public List<Pagpay> getAllPayments() {
+        List<Pagpay> allPayments = pagpayRepository.findAll();
+        return allPayments;
     }
 }

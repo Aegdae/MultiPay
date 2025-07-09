@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 public class PagsafeService {
@@ -25,7 +26,7 @@ public class PagsafeService {
             throw new IllegalArgumentException("ProcessId não pode ser nulo");
         }
 
-        double taxD = 0.05;
+        double taxD = 0.06;
         BigDecimal taxBD = BigDecimal.valueOf(taxD);
         BigDecimal tax = paymentDto.getAmount()
                 .multiply(taxBD)
@@ -55,5 +56,10 @@ public class PagsafeService {
 
         kafkaProducer.paymentProducer(dto);
         return pagsafeRepository.save(pagsafe);
+    }
+
+    public List<Pagsafe> getAllPayments() {
+        List<Pagsafe> allPayments = pagsafeRepository.findAll();
+        return allPayments;
     }
 }

@@ -5,10 +5,7 @@ import my.payment_process.domain.entity.Payment;
 import my.payment_process.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,14 +16,20 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @PostMapping("/process-payments")
-    public ResponseEntity<Void> processPayment(@RequestBody PaymentDto paymentDto){
+    public ResponseEntity<String> processPayment(@RequestBody PaymentDto paymentDto){
         paymentService.processPayment(paymentDto);
-        return ResponseEntity.accepted().build();
+        return ResponseEntity.ok("Pagamento processado com sucesso!");
     }
 
     @GetMapping("/get-payments")
     public ResponseEntity<List<Payment>> getAllPayments(){
         List<Payment> listPayements = paymentService.getAllPayments();
         return ResponseEntity.ok(listPayements);
+    }
+
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<?> deleteAll() {
+        paymentService.deletAll();
+        return ResponseEntity.noContent().build();
     }
 }

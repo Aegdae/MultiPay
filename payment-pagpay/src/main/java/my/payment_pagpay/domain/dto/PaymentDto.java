@@ -1,5 +1,6 @@
 package my.payment_pagpay.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import my.payment_pagpay.domain.entity.PagpayStatus;
 
@@ -11,8 +12,11 @@ public class PaymentDto {
     private UUID processId;
     private String username;
     private String name;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal amount;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal tax;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal total;
     private PagpayStatus status;
 }

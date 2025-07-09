@@ -1,8 +1,8 @@
-package my.payment_pagpay.api;
+package my.payment_pagsafe.api.payments;
 
-import my.payment_pagpay.domain.dto.PaymentDto;
-import my.payment_pagpay.domain.entity.Pagpay;
-import my.payment_pagpay.services.PagpayService;
+import my.payment_pagsafe.domain.dto.PaymentDto;
+import my.payment_pagsafe.domain.entity.Pagsafe;
+import my.payment_pagsafe.services.PagsafeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,20 +11,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/payments")
-public class PagpayController {
+public class PagsafeController {
 
     @Autowired
-    private PagpayService pagpayService;
+    private PagsafeService pagsafeService;
 
     @PostMapping
     public ResponseEntity<Void> payments(@RequestBody PaymentDto paymentDto) {
-        pagpayService.payment(paymentDto);
+        pagsafeService.payment(paymentDto);
         return ResponseEntity.accepted().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Pagpay>> getAllPayments() {
-        List<Pagpay> allPayments = pagpayService.getAllPayments();
+    public ResponseEntity<List<Pagsafe>> getAllPayments() {
+        List<Pagsafe> allPayments = pagsafeService.getAllPayments();
         return ResponseEntity.ok(allPayments);
     }
 }
