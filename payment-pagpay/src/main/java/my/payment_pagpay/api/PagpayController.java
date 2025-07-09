@@ -18,7 +18,6 @@ public class PagpayController {
 
     @PostMapping("/payments")
     public ResponseEntity<Void> payments(@RequestBody PaymentDto paymentDto) {
-        System.out.println("Recebido no Pagpay: " + paymentDto);
         pagpayService.payment(paymentDto);
         return ResponseEntity.accepted().build();
     }
