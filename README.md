@@ -52,17 +52,17 @@ O serviço central é o `payment-process`, responsável por receber a solicitaç
 graph TD
   Client[Cliente] -->|POST /process-payments| PaymentProcess[payment-process]
 
-  PaymentProcess -->|POST /pagpay/payments (até 3 tentativas)| PagPay[payment-pagpay (principal)]
+  PaymentProcess -->|POST /pagpay/payments - até 3 tentativas| PagPay[payment-pagpay - principal]
 
   PagPay -- Falha após 3 tentativas --> PaymentProcessRetry[payment-process]
 
-  PaymentProcessRetry -->|POST /pagsafe/payments| PagSafe[payment-pagsafe (fallback)]
+  PaymentProcessRetry -->|POST /pagsafe/payments| PagSafe[payment-pagsafe - fallback]
 
   PagSafe -- Sucesso --> PaymentProcess
 
   PagSafe -- Falha --> PaymentProcess
 
-  PaymentProcess -->|Retorna resultado (sucesso ou erro)| Client
+  PaymentProcess -->|Retorna resultado - sucesso ou erro| Client
 
   Client -->|GET /get-payments| PaymentProcess
   Client -->|DELETE /delete-all| PaymentProcess
